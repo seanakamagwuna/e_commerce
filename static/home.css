@@ -1,0 +1,381 @@
+/* ---------- Base ---------- */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f7f7f9;
+    color: #1a1a2e;
+    line-height: 1.5;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* ---------- Nav bar ---------- */
+
+.site-header {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e5e5eb;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.navbar {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0.9rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.nav-logo {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #4c3fe0;
+    white-space: nowrap;
+}
+
+.nav-search {
+    flex: 1;
+    display: flex;
+    max-width: 420px;
+    background-color: #f2f2f6;
+    border-radius: 999px;
+    padding: 0.4rem 0.5rem 0.4rem 1rem;
+    align-items: center;
+}
+
+.nav-search-input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 0.9rem;
+    color: #1a1a2e;
+}
+
+.nav-search-btn {
+    border: none;
+    background: transparent;
+    color: #6b6b7b;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 0.3rem;
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-left: auto;
+}
+
+.nav-cart {
+    position: relative;
+    display: flex;
+    align-items: center;
+    color: #1a1a2e;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    background-color: #4c3fe0;
+    color: #fff;
+    font-size: 0.68rem;
+    font-weight: 700;
+    line-height: 1;
+    padding: 3px 5px;
+    border-radius: 999px;
+    min-width: 16px;
+    text-align: center;
+}
+
+.nav-auth {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+}
+
+.nav-link {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #4a4a5a;
+}
+
+.nav-link-primary {
+    background-color: #4c3fe0;
+    color: #fff;
+    padding: 0.45rem 1rem;
+    border-radius: 8px;
+}
+
+.nav-auth-user {
+    gap: 0.75rem;
+}
+
+.nav-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background-color: #4c3fe0;
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-logout-form {
+    display: inline;
+}
+
+.nav-logout-btn {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+/* ---------- Hero ---------- */
+
+.hero {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4.5rem 1.5rem;
+    text-align: center;
+}
+
+.hero-title {
+    font-size: 2.4rem;
+    font-weight: 800;
+    margin-bottom: 0.75rem;
+    color: #1a1a2e;
+}
+
+.hero-subtext {
+    font-size: 1.05rem;
+    color: #5c5c6e;
+    max-width: 520px;
+    margin: 0 auto 1.75rem;
+}
+
+.btn {
+    display: inline-block;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.btn-cta {
+    background-color: #4c3fe0;
+    color: #fff;
+    padding: 0.85rem 2rem;
+    font-size: 1rem;
+}
+
+.btn-cta:hover {
+    background-color: #3c30c0;
+}
+
+/* ---------- Category quick-links ---------- */
+
+.category-links {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem 2.5rem;
+}
+
+.category-scroll {
+    display: flex;
+    gap: 0.75rem;
+    overflow-x: auto;
+    padding-bottom: 0.25rem;
+}
+
+.category-pill {
+    flex: 0 0 auto;
+    background-color: #ffffff;
+    border: 1px solid #e5e5eb;
+    color: #333344;
+    font-size: 0.88rem;
+    font-weight: 600;
+    padding: 0.55rem 1.25rem;
+    border-radius: 999px;
+    white-space: nowrap;
+}
+
+.category-pill:hover {
+    background-color: #4c3fe0;
+    border-color: #4c3fe0;
+    color: #fff;
+}
+
+.category-pill-empty {
+    color: #9a9aab;
+    font-weight: 500;
+    cursor: default;
+}
+
+.category-pill-empty:hover {
+    background-color: #ffffff;
+    border-color: #e5e5eb;
+    color: #9a9aab;
+}
+
+/* ---------- Featured products ---------- */
+
+.featured {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem 4rem;
+}
+
+.section-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: #1a1a2e;
+}
+
+.all-products {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 4rem;
+    border-top: 1px solid #e5e5eb;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 1.5rem;
+}
+
+.product-card {
+    background-color: #ffffff;
+    border: 1px solid #e5e5eb;
+    border-radius: 14px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.product-card:hover {
+    box-shadow: 0 8px 24px rgba(26, 26, 46, 0.08);
+    transform: translateY(-2px);
+}
+
+.product-card-image-link {
+    display: block;
+}
+
+.product-card-image {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+    display: block;
+    background-color: #f0f0f4;
+}
+
+.product-card-image-placeholder {
+    background: linear-gradient(135deg, #eceafc, #f7f7f9);
+}
+
+.product-card-body {
+    padding: 1rem 1.1rem 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.product-card-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1a1a2e;
+}
+
+.product-card-price {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #4c3fe0;
+    margin-bottom: 0.5rem;
+}
+
+.product-card-form {
+    margin-top: auto;
+}
+
+.btn-add-cart {
+    width: 100%;
+    background-color: #1a1a2e;
+    color: #fff;
+    padding: 0.6rem 0;
+    font-size: 0.88rem;
+}
+
+.btn-add-cart:hover {
+    background-color: #4c3fe0;
+}
+
+/* ---------- Empty state ---------- */
+
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 4rem 1.5rem;
+    color: #6b6b7b;
+}
+
+.empty-state-icon {
+    color: #c3c3d6;
+    margin-bottom: 1rem;
+}
+
+.empty-state-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #333344;
+    margin-bottom: 0.35rem;
+}
+
+.empty-state-subtext {
+    font-size: 0.9rem;
+    color: #8a8a9c;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 640px) {
+    .navbar {
+        flex-wrap: wrap;
+        row-gap: 0.75rem;
+    }
+
+    .nav-search {
+        order: 3;
+        max-width: 100%;
+        flex-basis: 100%;
+    }
+
+    .hero-title {
+        font-size: 1.8rem;
+    }
+}

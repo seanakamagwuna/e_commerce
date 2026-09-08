@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Sign up{% endblock %} | ShopFront</title>
+    <link rel="stylesheet" href="{% static 'login.css' %}">
+</head>
+<body class="auth-body">
+
+    <main class="auth-main">
+        <div class="auth-card">
+            <a href="{% url 'product_list' %}" class="auth-logo">ShopFront</a>
+            <h1 class="auth-heading">Create your account</h1>
+            <p class="auth-subheading">Join ShopFront to start shopping</p>
+
+            {% if error %}
+                <div class="form-error">{{ error }}</div>
+            {% endif %}
+
+            <form method="post" action="">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ next }}">
+
+                <div class="field-group">
+                    <label class="field-label" for="id_username">Username</label>
+                    <input type="text" name="username" id="id_username" class="field-input" value="{{ username|default:'' }}" required autofocus>
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label" for="id_email">Email</label>
+                    <input type="email" name="email" id="id_email" class="field-input" value="{{ email|default:'' }}" required>
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label" for="id_password1">Password</label>
+                    <input type="password" name="password1" id="id_password1" class="field-input" required>
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label" for="id_password2">Confirm password</label>
+                    <input type="password" name="password2" id="id_password2" class="field-input" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Sign up</button>
+            </form>
+
+            <p class="auth-footer">Already have an account? <a href="{% url 'accounts:login' %}" class="auth-link">Sign in</a></p>
+        </div>
+    </main>
+
+</body>
+</html>

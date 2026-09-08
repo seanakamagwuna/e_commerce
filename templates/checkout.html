@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | ShopFront</title>
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+    <link rel="stylesheet" href="{% static 'login.css' %}">
+    <link rel="stylesheet" href="{% static 'profile.css' %}">
+    <link rel="stylesheet" href="{% static 'checkout.css' %}">
+</head>
+<body>
+
+    <header class="site-header">
+        <nav class="navbar">
+            <a href="{% url 'product_list' %}" class="nav-logo">ShopFront</a>
+
+            <div class="nav-actions">
+                <a href="{% url 'order:cart_detail' %}" class="nav-cart" aria-label="Cart">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                </a>
+
+                <div class="nav-auth nav-auth-user">
+                    <a href="{% url 'accounts:profile' %}" class="nav-avatar" title="{{ profile.user.username }}">
+                        {{ profile.user.username|first|upper }}
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="profile-main checkout-main">
+        <div class="profile-container">
+
+            <a href="{% url 'accounts:profile' %}" class="back-link">&larr; Back to cart</a>
+
+            <h1 class="checkout-heading">Checkout</h1>
+
+            <div class="checkout-grid">
+                <div class="profile-panel">
+                    <h2 class="panel-title">Shipping details</h2>
+
+                    {% if error %}
+                        <div class="form-error">{{ error }}</div>
+                    {% endif %}
+
+                    <form method="post" action="{% url 'order:checkout' %}" class="profile-form">
+                        {% csrf_token %}
+
+                        <div class="field-group">
+                            <label class="field-label" for="id_address">Address</label>
+                            <input type="text" name="address" id="id_address" class="field-input" value="{{ profile.address }}" placeholder="Shipping address" required>
+                        </div>
+
+                        <div class="field-group">
+                            <label class="field-label" for="id_phone">Phone</label>
+                            <input type="tel" name="phone" id="id_phone" class="field-input" value="{{ profile.phone }}" placeholder="Phone number" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block">Place order</button>
+                    </form>
+                </div>
+
+                <div class="profile-panel">
+                    <h2 class="panel-title">Order summary</h2>
+
+                    <div class="cart-list">
+                        {% for item in cart_items %}
+                            <div class="cart-item">
+                                <a href="{% url 'product_detail' item.product.slug %}" class="cart-item-image-link">
+                                    {% if item.product.image %}
+                                        <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="cart-item-image">
+                                    {% else %}
+                                        <div class="cart-item-image cart-item-image-placeholder"></div>
+                                    {% endif %}
+                                </a>
+
+                                <div class="cart-item-body">
+                                    <p class="cart-item-name">{{ item.product.name }}</p>
+                                    <p class="cart-item-price">${{ item.product.price }} &times; {{ item.quantity }}</p>
+                                </div>
+
+                                <span class="cart-item-subtotal">${{ item.line_total }}</span>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="cart-summary">
+                        <span>Total</span>
+                        <span class="cart-summary-total">${{ cart_total }}</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+</body>
+</html>

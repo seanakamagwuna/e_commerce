@@ -1,0 +1,29 @@
+/* ---------- Layout ---------- */
+
+.checkout-main {
+    max-width: 900px;
+}
+
+.checkout-heading {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #1a1a2e;
+    margin-bottom: 1.5rem;
+}
+
+.checkout-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+@media (max-width: 720px) {
+    .checkout-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.confirmation-cart-list {
+    margin-top: 1.5rem;
+}

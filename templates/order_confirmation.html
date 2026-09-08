@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmed | ShopFront</title>
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+    <link rel="stylesheet" href="{% static 'login.css' %}">
+    <link rel="stylesheet" href="{% static 'profile.css' %}">
+    <link rel="stylesheet" href="{% static 'checkout.css' %}">
+</head>
+<body>
+
+    <header class="site-header">
+        <nav class="navbar">
+            <a href="{% url 'product_list' %}" class="nav-logo">ShopFront</a>
+            <div class="nav-actions">
+                <div class="nav-auth nav-auth-user">
+                    <a href="{% url 'accounts:profile' %}" class="nav-avatar" title="{{ order.user.username }}">
+                        {{ order.user.username|first|upper }}
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="profile-main checkout-main">
+        <div class="profile-container">
+
+            <div class="profile-panel">
+                <h1 class="checkout-heading">Thanks for your order!</h1>
+                <p class="cart-empty">Order #{{ order.id }} has been placed and shipped to {{ order.address }}.</p>
+
+                <div class="cart-list confirmation-cart-list">
+                    {% for item in order.items.all %}
+                        <div class="cart-item">
+                            <div class="cart-item-body">
+                                <p class="cart-item-name">{{ item.product_name }}</p>
+                                <p class="cart-item-price">${{ item.price }} &times; {{ item.quantity }}</p>
+                            </div>
+                            <span class="cart-item-subtotal">${{ item.line_total }}</span>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="cart-summary">
+                    <span>Total</span>
+                    <span class="cart-summary-total">${{ order.total }}</span>
+                </div>
+
+                <a href="{% url 'product_list' %}" class="btn btn-primary btn-block checkout-btn">Continue shopping</a>
+            </div>
+
+        </div>
+    </main>
+
+</body>
+</html>

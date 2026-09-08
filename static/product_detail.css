@@ -1,0 +1,135 @@
+/* ---------- Page layout ---------- */
+
+.product-main {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #4c3fe0;
+    margin-bottom: 1.75rem;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+/* ---------- Detail layout ---------- */
+
+.product-detail {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 2.5rem;
+    align-items: start;
+}
+
+.product-detail-image-wrap {
+    background-color: #ffffff;
+    border: 1px solid #e5e5eb;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.product-detail-image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+    background-color: #f0f0f4;
+}
+
+.product-detail-image-placeholder {
+    background: linear-gradient(135deg, #eceafc, #f7f7f9);
+}
+
+/* ---------- Body ---------- */
+
+.product-detail-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+}
+
+.product-detail-categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.product-detail-name {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #1a1a2e;
+}
+
+.product-detail-price {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #4c3fe0;
+}
+
+.badge {
+    display: inline-block;
+    align-self: flex-start;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.3rem 0.7rem;
+    border-radius: 999px;
+}
+
+.badge-lowstock {
+    background-color: #fef3e0;
+    color: #b3720a;
+}
+
+.badge-outofstock {
+    background-color: #f4f4f8;
+    color: #8a8a9c;
+}
+
+.product-detail-description {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: #4a4a5a;
+    white-space: pre-line;
+}
+
+.product-detail-form {
+    margin-top: 0.75rem;
+    max-width: 280px;
+}
+
+.product-detail-form .btn-add-cart {
+    padding: 0.8rem 0;
+    font-size: 0.95rem;
+    border-radius: 10px;
+}
+
+.product-detail-form .btn-add-cart:disabled {
+    background-color: #d8d8e2;
+    color: #8a8a9c;
+    cursor: not-allowed;
+}
+
+.product-detail-form .btn-add-cart:disabled:hover {
+    background-color: #d8d8e2;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 700px) {
+    .product-detail {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .product-detail-form {
+        max-width: 100%;
+    }
+}

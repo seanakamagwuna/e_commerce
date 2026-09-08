@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Product | ShopFront Admin</title>
+    <link rel="stylesheet" href="{% static 'add_product.css' %}">
+</head>
+<body class="dash-body">
+
+    <div class="addproduct-page">
+
+        <a href="{% url 'admin_dashboard' %}" class="back-link">&larr; Back to dashboard</a>
+
+        <div class="addproduct-header">
+            <h1 class="addproduct-title">Edit product</h1>
+            <p class="addproduct-subtitle">Update the details for {{ product.name }}.</p>
+        </div>
+
+        {% if error %}
+            <div class="form-error">
+                {{ error }}
+            </div>
+        {% endif %}
+
+        <div class="addproduct-panel">
+            <form method="post" enctype="multipart/form-data" class="addproduct-form">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="id_image">Product image</label>
+                    <div class="image-field">
+                        <div class="image-preview">
+                            {% if product.image %}
+                                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                            {% else %}
+                                <span class="image-preview-placeholder">No image selected</span>
+                            {% endif %}
+                        </div>
+                        <input type="file" id="id_image" name="image" accept="image/*">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="id_name">Name</label>
+                    <input type="text" id="id_name" name="name" value="{{ product.name }}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="id_price">Price</label>
+                    <div class="input-prefix">
+                        <span class="input-prefix-symbol">$</span>
+                        <input type="number" id="id_price" name="price" step="0.01" min="0" value="{{ product.price }}" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="id_description">Description</label>
+                    <textarea id="id_description" name="description" rows="5" required>{{ product.description }}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="id_category">Category</label>
+                    <select id="id_category" name="category" required>
+                        <option value="" disabled>Select a category</option>
+                        {% for category in categories %}
+                            <option value="{{ category.id }}" {% if category.id == current_category_id %}selected{% endif %}>{{ category.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="id_stock">Stock</label>
+                    <input type="number" id="id_stock" name="stock" step="1" min="0" value="{{ product.stock }}" required>
+                </div>
+
+                <div class="form-actions">
+                    <a href="{% url 'admin_dashboard' %}" class="btn btn-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+</body>
+</html>

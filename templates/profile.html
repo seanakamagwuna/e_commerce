@@ -1,0 +1,183 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Profile{% endblock %} | ShopFront</title>
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+    <link rel="stylesheet" href="{% static 'login.css' %}">
+    <link rel="stylesheet" href="{% static 'profile.css' %}">
+    <script src="{% static 'cart.js' %}" defer></script>
+</head>
+<body>
+
+    <header class="site-header">
+        <nav class="navbar">
+            <a href="{% url 'product_list' %}" class="nav-logo">ShopFront</a>
+
+            <div class="nav-actions">
+                <a href="{% url 'order:cart_detail' %}" class="nav-cart" aria-label="Cart">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    {% if cart_item_count %}
+                        <span class="cart-badge">{{ cart_item_count }}</span>
+                    {% endif %}
+                </a>
+
+                <div class="nav-auth nav-auth-user">
+                    <a href="{% url 'accounts:profile' %}" class="nav-avatar nav-avatar-active" title="{{ profile.user.username }}">
+                        {{ profile.user.username|first|upper }}
+                    </a>
+                    <form action="{% url 'accounts:logout' %}" method="post" class="nav-logout-form">
+                        {% csrf_token %}
+                        <button type="submit" class="nav-link nav-logout-btn">Log out</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="profile-main">
+        <div class="profile-container">
+
+            <a href="{% url 'product_list' %}" class="back-link">&larr; Back to store</a>
+
+            <div class="profile-summary">
+                <div class="profile-avatar">{{ profile.user.username|first|upper }}</div>
+                <div class="profile-summary-info">
+                    <h1 class="profile-username">{{ profile.user.username }}</h1>
+                    <p class="profile-email">{{ profile.user.email|default:"No email on file" }}</p>
+                    {% if profile.is_shop_owner %}
+                        <span class="badge badge-owner">Shop owner</span>
+                    {% endif %}
+                </div>
+            </div>
+
+            {% if error %}
+                <div class="form-error">{{ error }}</div>
+            {% endif %}
+
+            {% if profile.is_shop_owner %}
+                <div class="profile-panel">
+                    <h2 class="panel-title">Account details</h2>
+                    <dl class="profile-details">
+                        <div class="detail-row">
+                            <dt>Address</dt>
+                            <dd>{{ profile.address|default:"Not set" }}</dd>
+                        </div>
+                        <div class="detail-row">
+                            <dt>Phone</dt>
+                            <dd>{{ profile.phone|default:"Not set" }}</dd>
+                        </div>
+                    </dl>
+                    <a href="{% url 'admin_dashboard' %}" class="btn btn-primary">Go to admin dashboard</a>
+                </div>
+            {% else %}
+                <div class="profile-panel">
+                    <h2 class="panel-title">Account details</h2>
+                    <form method="post" action="{% url 'accounts:profile' %}" class="profile-form">
+                        {% csrf_token %}
+
+                        <div class="field-group">
+                            <label class="field-label" for="id_address">Address</label>
+                            <input type="text" name="address" id="id_address" class="field-input" value="{{ profile.address }}" placeholder="Shipping address">
+                        </div>
+
+                        <div class="field-group">
+                            <label class="field-label" for="id_phone">Phone</label>
+                            <input type="tel" name="phone" id="id_phone" class="field-input" value="{{ profile.phone }}" placeholder="Phone number">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </form>
+                </div>
+            {% endif %}
+
+            <div class="profile-panel cart-panel" data-shop-url="{% url 'product_list' %}">
+                <h2 class="panel-title">My cart</h2>
+
+                {% if cart_items %}
+                    <div class="cart-list">
+                        {% for item in cart_items %}
+                            <div class="cart-item" data-product-id="{{ item.product.id }}">
+                                <a href="{% url 'product_detail' item.product.slug %}" class="cart-item-image-link">
+                                    {% if item.product.image %}
+                                        <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="cart-item-image">
+                                    {% else %}
+                                        <div class="cart-item-image cart-item-image-placeholder"></div>
+                                    {% endif %}
+                                </a>
+
+                                <div class="cart-item-body">
+                                    <p class="cart-item-name">{{ item.product.name }}</p>
+                                    <p class="cart-item-price" data-unit-price="{{ item.product.price }}">${{ item.product.price }} &times; {{ item.quantity }}</p>
+                                    {% if item.product.stock == 0 %}
+                                        <span class="badge badge-outofstock">Out of stock</span>
+                                    {% elif item.product.stock <= 3 %}
+                                        <span class="badge badge-lowstock">Only {{ item.product.stock }} left in stock</span>
+                                    {% endif %}
+                                </div>
+
+                                <div class="cart-item-actions">
+                                    <form action="{% url 'order:add_to_cart' item.product.id %}" method="post" class="cart-qty-form">
+                                        {% csrf_token %}
+                                        <button type="submit" class="cart-qty-btn" aria-label="Add one more" {% if item.quantity >= item.product.stock %}disabled{% endif %}>+</button>
+                                    </form>
+                                    <span class="cart-item-subtotal">${{ item.line_total }}</span>
+                                    <form action="{% url 'order:remove_from_cart' item.product.id %}" method="post" class="cart-remove-form">
+                                        {% csrf_token %}
+                                        <button type="submit" class="action-link action-link-danger">Remove</button>
+                                    </form>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="cart-summary">
+                        <span>Total</span>
+                        <span class="cart-summary-total">${{ cart_total }}</span>
+                    </div>
+
+                    <a href="{% url 'order:checkout' %}" class="btn btn-primary btn-block checkout-btn">Proceed to checkout</a>
+                {% else %}
+                    <p class="cart-empty">Your cart is empty. <a href="{% url 'product_list' %}" class="auth-link">Continue shopping</a></p>
+                {% endif %}
+            </div>
+
+            <div class="profile-panel orders-panel">
+                <h2 class="panel-title">Order history</h2>
+
+                {% if orders %}
+                    <div class="orders-list">
+                        {% for order in orders %}
+                            <div class="order-item">
+                                <div class="order-item-header">
+                                    <span class="order-item-id">Order #{{ order.id }}</span>
+                                    <span class="order-item-date">{{ order.created_at|date:"M j, Y" }}</span>
+                                </div>
+                                <ul class="order-item-products">
+                                    {% for item in order.items.all %}
+                                        <li>{{ item.product_name }} &times; {{ item.quantity }}</li>
+                                    {% endfor %}
+                                </ul>
+                                <div class="order-item-footer">
+                                    <span class="badge badge-owner">{{ order.get_status_display }}</span>
+                                    <span class="order-item-total">${{ order.total }}</span>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="cart-empty">You haven't placed any orders yet.</p>
+                {% endif %}
+            </div>
+
+        </div>
+    </main>
+
+</body>
+</html>

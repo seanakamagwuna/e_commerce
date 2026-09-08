@@ -1,0 +1,156 @@
+/* ---------- Base ---------- */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body.auth-body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f7f7f9;
+    color: #1a1a2e;
+    line-height: 1.5;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* ---------- Card ---------- */
+
+.auth-main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 24px;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 380px;
+    background-color: #ffffff;
+    border: 1px solid #e5e5eb;
+    border-radius: 14px;
+    padding: 40px 32px;
+}
+
+.auth-logo {
+    display: block;
+    text-align: center;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #4c3fe0;
+    margin-bottom: 24px;
+}
+
+.auth-heading {
+    font-size: 1.4rem;
+    font-weight: 800;
+    text-align: center;
+    color: #1a1a2e;
+    margin: 0 0 8px 0;
+}
+
+.auth-subheading {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #5c5c6e;
+    margin: 0 0 28px 0;
+}
+
+/* ---------- Error placeholder ---------- */
+
+.form-error {
+    background-color: #fdeeee;
+    color: #c02b0a;
+    font-size: 0.83rem;
+    padding: 10px 14px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+/* ---------- Fields ---------- */
+
+.field-group {
+    margin-bottom: 18px;
+}
+
+.field-label {
+    display: block;
+    font-size: 0.83rem;
+    font-weight: 600;
+    color: #333344;
+    margin-bottom: 6px;
+}
+
+.field-input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #e5e5eb;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    color: #1a1a2e;
+    background-color: #fff;
+}
+
+.field-input:focus {
+    outline: none;
+    border-color: #4c3fe0;
+}
+
+.auth-row {
+    display: flex;
+    justify-content: flex-end;
+    margin: -8px 0 20px 0;
+}
+
+.auth-link {
+    font-size: 0.83rem;
+    font-weight: 600;
+    color: #4c3fe0;
+}
+
+.auth-link:hover {
+    text-decoration: underline;
+}
+
+/* ---------- Buttons ---------- */
+
+.btn {
+    display: inline-block;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.btn-primary {
+    background-color: #4c3fe0;
+    color: #fff;
+    padding: 0.7rem 1.5rem;
+    font-size: 0.95rem;
+}
+
+.btn-primary:hover {
+    background-color: #3c30c0;
+}
+
+.btn-block {
+    width: 100%;
+    text-align: center;
+}
+
+.auth-footer {
+    text-align: center;
+    font-size: 0.88rem;
+    color: #5c5c6e;
+    margin-top: 24px;
+}
