@@ -36,12 +36,14 @@ ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',') if os.environ.get
 # Application definition
 
 INSTALLED_APPS = [
+    'cloudinary_storage',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'cloudinary',
     'store',
     'order',
     'accounts',
@@ -130,8 +132,34 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
+# Only collect this project's own static/ dir to Cloudinary, not every
+# installed app's bundled static assets (e.g. django.contrib.admin's vendor JS).
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+]
+
+STORAGES = {
+    'default': {
+        'BACKEND': 'cloudinary_storage.storage.MediaCloudinaryStorage',
+    },
+    'staticfiles': {
+        'BACKEND': 'config.storage.DirectStaticHashedCloudinaryStorage',
+    },
+}
+
+# django-cloudinary-storage's collectstatic override still reads the legacy
+# (pre-Django-4.2) storage settings directly, so keep these in sync with STORAGES.
+DEFAULT_FILE_STORAGE = STORAGES['default']['BACKEND']
+STATICFILES_STORAGE = STORAGES['staticfiles']['BACKEND']
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.environ['CLOUDINARY_CLOUD_NAME'],
+    'API_KEY': os.environ['CLOUDINARY_API_KEY'],
+    'API_SECRET': os.environ['CLOUDINARY_API_SECRET'],
+}
 
 
 # Email
