@@ -30,9 +30,13 @@ SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',') if os.environ.get('ALLOWED_HOSTS') else [
-    "https://e-commerce-6g25.onrender.com"
-]
+# ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',') if os.environ.get('ALLOWED_HOSTS') else [
+#     "https://e-commerce-6g25.onrender.com"
+# ]
+
+ALLOWED_HOSTS = ["https://e-commerce-6g25.onrender.com", "e-commerce-6g25.onrender.com", "*"]
+
+print("ALLOWED_HOSTS:", ALLOWED_HOSTS)
 
 
 # Application definition
