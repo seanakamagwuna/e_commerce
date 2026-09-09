@@ -17,8 +17,7 @@ from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
 load_dotenv(BASE_DIR / '.env')
 
@@ -30,7 +29,7 @@ load_dotenv(BASE_DIR / '.env')
 SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+DEBUG = False
 
 # ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',') if os.environ.get('ALLOWED_HOSTS') else [
 #     "https://e-commerce-6g25.onrender.com"
@@ -143,9 +142,13 @@ USE_TZ = True
 
 # Only collect this project's own static/ dir to Cloudinary, not every
 # installed app's bundled static assets (e.g. django.contrib.admin's vendor JS).
-STATICFILES_FINDERS = [
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-]
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"      # where collectstatic writes
+STATICFILES_DIRS = [BASE_DIR / "static"]    # where your source home.css lives
+
+STORAGES = {
+    "staticfiles": {"BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"},
+}
 
 STORAGES = {
     'default': {
